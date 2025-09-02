@@ -36,9 +36,11 @@ void NeuralNetwork_Render(NeuralNetwork* nn){
             RenderCStrSizeAlxFont(&font,str.Memory,str.size,x,y,GRAY);
             String_Free(&str);
         
-            str = String_Format("%f",nl->biases[j]);
-            RenderCStrSizeAlxFont(&font,str.Memory,str.size,x,y + font.CharSizeY,GRAY);
-            String_Free(&str);
+            if(nl->precount > 0){
+                str = String_Format("%f",nl->biases[j]);
+                RenderCStrSizeAlxFont(&font,str.Memory,str.size,x,y + font.CharSizeY,GRAY);
+                String_Free(&str);
+            }
         
             const int max = 3;
             const int count = nl->precount < max ? nl->precount : max;
@@ -79,6 +81,7 @@ NeuralDataMap NeuralDataMap_Make_GSprite(char* path){
     if(epoch + SPRITE_COUNT > SPRITE_MAX){
         epoch = 0;
     }
+    printf("Epoch: %d\n",epoch);
     return ndm;
 }
 
