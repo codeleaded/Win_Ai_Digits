@@ -119,7 +119,7 @@ void Update(AlxWindow* w){
     }
     if(Stroke(ALX_KEY_S).PRESSED){
         unsigned int ndir = Random_u32_MinMax(0,10);
-        unsigned int item = Random_u32_MinMax(0,10);
+        unsigned int item = Random_u32_MinMax(0,SPRITE_MAX);
 
         NeuralDataPair ndp = NeuralDataPair_Make_GSprite(DATA_PATH SPRITE_TEST,ndir,item);
         loss = NeuralNetwork_Test(&nnet,&ndp);
