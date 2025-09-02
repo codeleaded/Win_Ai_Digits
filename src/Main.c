@@ -6,12 +6,12 @@
 #define DATA_PATH           "/home/codeleaded/Data/NN/DigitsGray/"
 #define SPRITE_TEST         "testing"
 #define SPRITE_TRAINING     "training"
-#define SPRITE_COUNT        1
+#define SPRITE_COUNT        4
 #define SPRITE_MAX          300
 
 #define NN_PATH             "./data/Model.nnalx"
 #define NN_COUNT            10
-#define NN_LEARNRATE        0.5f
+#define NN_LEARNRATE        0.1f
 
 int epoch = 0;
 int reality = 0;
@@ -82,6 +82,17 @@ NeuralDataMap NeuralDataMap_Make_GSprite(char* path){
         epoch = 0;
     }
     printf("Epoch: %d\n",epoch);
+    return ndm;
+}
+
+NeuralDataMap NeuralDataMap_Make_GSprite_R(char* path){
+    NeuralDataMap ndm = NeuralDataMap_New();
+    for(int i = 0;i<10;i++){
+        for(int j = 0;j<SPRITE_COUNT;j++){
+            NeuralDataPair ndp = NeuralDataPair_Make_GSprite(path,i,Random_u32_MinMax(0,SPRITE_MAX));
+            Vector_Push(&ndm,&ndp);
+        }
+    }
     return ndm;
 }
 
