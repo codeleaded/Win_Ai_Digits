@@ -102,10 +102,12 @@ void Setup(AlxWindow* w){
     sp = GSprite_None();
     font = AlxFont_MAKE_HIGH(12,24);
     
-    if(Files_isFile(NN_PATH))
-        nnet = NeuralNetwork_Load(NN_PATH);
-    else
-        nnet = NeuralNetwork_Make((unsigned int[]){ 784,16,10,0 });
+    nnet = NeuralNetwork_Make((NeuralLayerBuilder[]){
+        NeuralLayerBuilder_Make(784,"relu"),
+        NeuralLayerBuilder_Make(16,"relu"),
+        NeuralLayerBuilder_Make(10,"softmax"),
+        NeuralLayerBuilder_End()
+    });
 }
 void Update(AlxWindow* w){
     if(Stroke(ALX_KEY_W).PRESSED){
@@ -143,7 +145,12 @@ void Update(AlxWindow* w){
             nnet = NeuralNetwork_Load(NN_PATH);
             printf("[NeuralNetwork]: Load -> Success!\n");
         }else{
-            nnet = NeuralNetwork_Make((unsigned int[]){ 784,16,10,0 });
+            nnet = nnet = NeuralNetwork_Make((NeuralLayerBuilder[]){
+                NeuralLayerBuilder_Make(784,"relu"),
+                NeuralLayerBuilder_Make(16,"relu"),
+                NeuralLayerBuilder_Make(10,"softmax"),
+                NeuralLayerBuilder_End()
+            });
             printf("[NeuralNetwork]: Load -> Failed!\n");
         }
     }
